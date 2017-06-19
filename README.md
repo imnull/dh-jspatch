@@ -12,6 +12,7 @@
 	jspatch.ajaxJson(url, data, method);
 
 例如：
+
 	<script type="text/javascript">
 
 	jspatch.ajaxGet('data.json').then(function(r){
