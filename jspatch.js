@@ -1,3 +1,6 @@
+/*
+ * Init
+ */
 (function(win){
 
 win.jspatch = {
@@ -9,13 +12,16 @@ win.jspatch = {
 	}
 };
 
-
 })(window);
 
-// Promise AJAX
+/*
+ * Promise AJAX
+ */
 (function(win){
 
-
+	/*
+	 * 传统方式XHR函数
+	 */
 	function AJAX(url, method, data, success, failed){
 		method = (method || 'GET').toUpperCase();
 		var xhr = new XMLHttpRequest();
@@ -33,7 +39,13 @@ win.jspatch = {
 		xhr.send(fd);
 	}
 
-
+	/*
+	 * 封装Promise
+	 * @url 请求地址
+	 * @method 使用的HTTP_METHOD
+	 * @data 发送数据
+	 * @asJson 是否以JSON方式返回
+	 */
 	function ajaxp(url, method, data, asJson){
 		var promise = new Promise(function (resolve, reject){
 
@@ -49,7 +61,9 @@ win.jspatch = {
 		});
 		return promise;
 	}
-
+	/*
+	 * 重载ajaxp函数，产生三个分支函数
+	 */
 	function ajaxGet(url){ return ajaxp(url, 'GET', null); }
 	function ajaxPost(url, data){ return ajaxp(url, 'POST', data); }
 	function ajaxJson(url, data, method){ return ajaxp(url, method ? method : jspatch.isObject(data) ? 'POST' : 'GET', data, !0); }
@@ -58,6 +72,5 @@ win.jspatch = {
 	jspatch.ajaxGet = ajaxGet;
 	jspatch.ajaxPost = ajaxPost;
 	jspatch.ajaxJson = ajaxJson;
-
 
 })(window);
